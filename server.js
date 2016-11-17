@@ -8,7 +8,7 @@ var controller = Botkit.slackbot({
 
 // connect the bot to a stream of messages
 controller.spawn({
-  token: "xoxb-105963886311-OIuL6bwpr9FPAGJqZANPI8R9",
+  token: process.env.ASYNC_VOTER_SLACK_BOT_TOKEN,
 }).startRTM()
 
 // give the bot something to listen for.
