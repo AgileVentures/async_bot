@@ -8,7 +8,13 @@ Set an environemnt variable equal to ASYNC_VOTER_SLACK_BOT_TOKEN to be your cust
 
 ## Running
 
-Edit the code to manually set the vote topic,  then say to the bot in a channel:
+Edit the code to manually set the vote topic, start the bot up with:
+
+```
+$ node server.js
+```
+
+and then say to the bot in a channel (or in DM if you want to just test it):
 
 ```
 @<bot-name> start new vote
