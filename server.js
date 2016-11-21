@@ -20,7 +20,10 @@ controller.hears('hello',['direct_message','direct_mention'],function(bot,messag
 
 var votes = [];
 var start_channel;
-var story = '"Project Page Redesign" https://github.com/AgileVentures/WebsiteOne/issues/797';
+var story = {
+              name: "Project view says 'Pivotal Tracker.' SB 'Issue Tracker.'",
+              url: 'https://waffle.io/AgileVentures/WebsiteOne/cards/58330e2be3d81b8300328fdf'
+            };
 var instructions = 'Please DM me with: `vote 1` (Simple), `vote 2` (Medium) or `vote 3` (Hard) - Discussion in ticket or here as you prefer. :slightly_smiling_face:'
 
 
@@ -37,10 +40,9 @@ var vote_text = function(){
   return text;
 };
 
-
 controller.hears('start new vote',['direct_message','direct_mention'],function(bot,message) {
   start_channel = message.channel;
-  bot.reply(message,'<!channel> NEW ASYNC VOTE on ' + story + ' ' + instructions);
+  bot.reply(message,'<!channel> NEW ASYNC VOTE on <' + story.url + '|' + story.name + '> ' + instructions);
 });
 
 controller.hears('vote',['direct_message'],function(bot,message) {
@@ -48,7 +50,7 @@ controller.hears('vote',['direct_message'],function(bot,message) {
   vote = message.text.match(/\d+/)[0]
   votes.push({vote:vote, user:message.user});
   bot.reply(message,'I received your vote: ' + vote +  ' <@'+message.user+'>');
-  bot.say({channel: start_channel, text: '<!here> ASYNC VOTE UPDATE '+ vote_text()+ ' on ' + story + ' ' + instructions});
+  bot.say({channel: start_channel, text: '<!here> ASYNC VOTE UPDATE '+ vote_text()+ ' on <' + story.url + '|' + story.name + '> '});
 });
 
 controller.hears('result',['direct_message','direct_mention'],function(bot,message) {
