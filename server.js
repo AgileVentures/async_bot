@@ -1,4 +1,5 @@
 var Botkit = require('botkit');
+var getUrls = require('get-urls');
 
 var controller = Botkit.slackbot({
   debug: false
@@ -43,7 +44,8 @@ var vote_text = function(){
 controller.hears('start new vote',['direct_message','direct_mention'],function(bot,message) {
   votes = [];
   start_channel = message.channel;
-  story.name = message.text.match(/start new vote "(.*)" http/)[1]
+  console.log(message.text)
+  story.name = message.text.match(/start new vote "(.*)" <?http/)[1]
   story.url = getUrls(message.text)[0];
   bot.reply(message,'<!channel> NEW ASYNC VOTE on <' + story.url + '|' + story.name + '> ' + instructions);
 });
