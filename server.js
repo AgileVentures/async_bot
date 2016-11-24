@@ -21,8 +21,8 @@ controller.hears('hello',['direct_message','direct_mention'],function(bot,messag
 var votes = [];
 var start_channel;
 var story = {
-              name: "Project view says 'Pivotal Tracker.' SB 'Issue Tracker.'",
-              url: 'https://waffle.io/AgileVentures/WebsiteOne/cards/58330e2be3d81b8300328fdf'
+              name: "Add option for users to delete their account",
+              url: 'https://waffle.io/AgileVentures/WebsiteOne/cards/5834ae24efa1290e00f495a7'
             };
 var instructions = 'Please DM me with: `vote 1` (Simple), `vote 2` (Medium) or `vote 3` (Hard) - Discussion in ticket or here as you prefer. :slightly_smiling_face:'
 
@@ -41,7 +41,10 @@ var vote_text = function(){
 };
 
 controller.hears('start new vote',['direct_message','direct_mention'],function(bot,message) {
+  votes = [];
   start_channel = message.channel;
+  story.name = message.text.match(/start new vote "(.*)" http/)[1]
+  story.url = getUrls(message.text)[0];
   bot.reply(message,'<!channel> NEW ASYNC VOTE on <' + story.url + '|' + story.name + '> ' + instructions);
 });
 
@@ -59,6 +62,12 @@ controller.hears('result',['direct_message','direct_mention'],function(bot,messa
      response += '<@' + vote.user + '> voted: '+ vote.vote + '\n';
   });
   bot.reply(message,response);
+});
+
+controller.on('team_joined',function(bot, message) {
+
+    bot.reply(message, 'Welcome aboard!');
+
 });
 
 

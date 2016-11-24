@@ -4,7 +4,8 @@
   "description": "",
   "main": "server.js",
   "dependencies": {
-    "botkit": "^0.4.1"
+    "botkit": "^0.4.1",
+    "get-urls": "^5.0.1"
   },
   "devDependencies": {},
   "scripts": {
