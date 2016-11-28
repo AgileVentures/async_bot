@@ -46,8 +46,9 @@ controller.hears('start new vote',['direct_message','direct_mention'],function(b
   votes = [];
   start_channel = message.channel;
   console.log(message.text)
-  story.name = message.text.match(/start new vote "(.*)" <?http/)[1]
-  story.url = getUrls(message.text)[0];
+  match = message.text.match(/start new vote "(.*)" <?(http.*)>/)
+  story.name = match[1]
+  story.url = match[2];
   bot.reply(message,'<!channel> NEW ASYNC VOTE on <' + story.url + '|' + story.name + '> ' + instructions);
 });
 
