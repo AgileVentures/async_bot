@@ -1,6 +1,8 @@
 var Botkit = require('botkit');
 var getUrls = require('get-urls');
 
+var vote_text = require('./src/utils.js');
+
 var controller = Botkit.slackbot({
   debug: false
   //include "log: false" to disable logging
@@ -28,20 +30,6 @@ var story = {
             };
 var instructions = 'Please DM me with: `vote 1` (Simple), `vote 2` (Medium) or `vote 3` (Hard) - Discussion in ticket or here as you prefer. :slightly_smiling_face:'
 
-
-var vote_text = function(){
-  var text = votes.length +' vote';
-  if(votes.length > 1){
-    text += 's';
-  }
-  text += ' so far ['
-  votes.forEach(function(vote) {
-     text += '<@' + vote.user + '> ';
-  });
-  text += ']'
-  return text;
-};
-
 controller.hears('start new vote',['direct_message','direct_mention'],function(bot,message) {
   votes = [];
   start_channel = message.channel;
@@ -57,7 +45,7 @@ controller.hears('vote',['direct_message'],function(bot,message) {
   vote = message.text.match(/\d+/)[0]
   votes.push({vote:vote, user:message.user});
   bot.reply(message,'I received your vote: ' + vote +  ' <@'+message.user+'>');
-  bot.say({channel: start_channel, text: '<!here> ASYNC VOTE UPDATE '+ vote_text()+ ' on <' + story.url + '|' + story.name + '> '});
+  bot.say({channel: start_channel, text: '<!here> ASYNC VOTE UPDATE '+ vote_text(votes)+ ' on <' + story.url + '|' + story.name + '> '});
 });
 
 controller.hears('result',['direct_message','direct_mention'],function(bot,message) {
