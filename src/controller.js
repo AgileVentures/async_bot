@@ -1,16 +1,15 @@
-module.exports = function(bot, controller){
+module.exports = function(bot, controller, winston){
+  var help = 'go to channel you want vote and direct mention me `start new vote "title" http://ticket.url` to start vote'
 
-  controller.hears(['help'], 'direct_message', function(bot, message){
-      bot.reply(message, 'help message');
-    });
-
-  controller.hears('hello',['direct_message','direct_mention'],function(bot,message) {
-
-    bot.reply(message,'Hello yourself');
-
+  controller.hears(['help'], ['direct_message','direct_mention'], function(bot, message){
+    bot.reply(message, help);
   });
 
-  var vote_text = require('./summaryText.js');
+  controller.hears('hello',['direct_message','direct_mention'],function(bot,message) {
+    bot.reply(message,'Hello yourself');
+  });
+
+  var summaryText = require('./summaryText.js');
 
   var votes = [];
   var start_channel;
@@ -23,7 +22,7 @@ module.exports = function(bot, controller){
   controller.hears('start new vote',['direct_message','direct_mention'],function(bot,message) {
     votes = [];
     start_channel = message.channel;
-    console.log(message.text)
+    winston.debug(message.text)
     match = message.text.match(/start new vote "(.*)" <?(http.*)>/)
     story.name = match[1]
     story.url = match[2];
@@ -31,7 +30,7 @@ module.exports = function(bot, controller){
   });
 
   controller.hears('vote',['direct_message'],function(bot,message) {
-    console.log(message)
+    winston.debug(message)
     vote = message.text.match(/\d+/)[0]
     votes.push({vote:vote, user:message.user});
     bot.reply(message,'I received your vote: ' + vote +  ' <@'+message.user+'>');
