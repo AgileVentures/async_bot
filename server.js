@@ -45,7 +45,7 @@ controller.hears('vote',['direct_message'],function(bot,message) {
   vote = message.text.match(/\d+/)[0]
   votes.push({vote:vote, user:message.user});
   bot.reply(message,'I received your vote: ' + vote +  ' <@'+message.user+'>');
-  bot.say({channel: start_channel, text: '<!here> ASYNC VOTE UPDATE '+ vote_text(votes)+ ' on <' + story.url + '|' + story.name + '> '});
+  bot.say({channel: start_channel, text: '<!here> ASYNC VOTE UPDATE '+ summaryText(votes)+ ' on <' + story.url + '|' + story.name + '> '});
 });
 
 controller.hears('result',['direct_message','direct_mention'],function(bot,message) {
