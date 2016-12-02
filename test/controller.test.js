@@ -66,23 +66,16 @@ describe("controller tests",()=>{
   });
 
 
-  xit('should summarise results after a vote', (done)=>{
+  it('should summarise results after a vote', ()=>{
     var self = this;
-    var startText = 'start new vote "title" <http://example.com>'
-    var voteText = 'vote 1'
-    var response = "<!channel> NEW ASYNC VOTE on <http://example.com|title> Please DM me with: `vote 1` (Simple), `vote 2` (Medium) or `vote 3` (Hard) - Discussion in ticket or here as you prefer. :slightly_smiling_face:"
-    // this doesn't work - trying to work out how to test a sequence of messages
-    return self.controller.usersInput([{
-                first: true,
-                user: self.slackId,
-                messages:[{text: startText}, {text: voteText, isAssertion:true, deep: 1}]
-            }])
-           .then((text)=>{
-             expect(text).to.equal(response)
-             done()
-           })
+    return self.controller.usersInput(self.input('vote 1'))
+               .then((text)=>{
+                 expect(text).to.equal('I received your vote: 1 <@test>')
+                 self.controller.usersInput(self.input('results'))
+                     .then((text)=>{
+                       expect(text).to.equal('summary of voting: \n\n<@test> voted: 1\n')
+                     })
+                  })
   });
-
-
 
 });
