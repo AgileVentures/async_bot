@@ -1,8 +1,7 @@
 const expect = require('chai').expect;
 const botMock = require('botkit-mock');
 const testedFile = require("../src/controller");
-var winston = require('winston');
-winston.level = 'info';
+
 describe("controller tests",()=>{
 
   beforeEach((done)=>{
@@ -15,8 +14,7 @@ describe("controller tests",()=>{
                 user: self.slackId,
                 messages:[{text: text, isAssertion:true }]
             }] }
-    var logger = console.log
-    testedFile(self.controller.bot, self.controller, winston)
+    testedFile(self.controller.bot, self.controller)
     done();
   });
 

@@ -1,6 +1,5 @@
 var Botkit = require('botkit');
-var winston = require('winston');
-winston.level = 'debug';
+
 var controller = Botkit.slackbot({
   debug: false
   //include "log: false" to disable logging
@@ -15,4 +14,4 @@ var bot = controller.spawn({
 
 // give the bot something to listen for.
 
-require('./src/controller')(bot, controller, winston);
+require('./src/controller')(bot, controller);
