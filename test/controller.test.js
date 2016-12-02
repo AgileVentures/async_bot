@@ -1,6 +1,6 @@
 const expect = require('chai').expect;
-const botMock = require('../mocks/botMock'); 
-const testedFile = require("../src/controller"); 
+const botMock = require('botkit-mock');
+const testedFile = require("../src/controller");
 var winston = require('winston');
 winston.level = 'info';
 describe("controller tests",()=>{
@@ -15,7 +15,7 @@ describe("controller tests",()=>{
                 user: self.slackId,
                 messages:[{text: text, isAssertion:true }]
             }] }
-    var logger = console.log              
+    var logger = console.log
     testedFile(self.controller.bot, self.controller, winston)
     done();
   });
@@ -35,8 +35,8 @@ describe("controller tests",()=>{
                .then((text)=>{
                  expect(text).to.equal('Hello yourself')
                })
-  }); 
- 
+  });
+
   it('should return vote announcement if user types `start new vote`', ()=>{
     var self = this;
     var text = 'start new vote "title" <http://example.com>'
@@ -45,8 +45,8 @@ describe("controller tests",()=>{
                .then((text)=>{
                  expect(text).to.equal(response)
                })
-  }); 
- 
+  });
+
   it('should acknowledge vote if users direct messages `vote #`', ()=>{
     var self = this;
     var text = 'vote 1'
@@ -55,7 +55,7 @@ describe("controller tests",()=>{
                .then((text)=>{
                  expect(text).to.equal(response)
                })
-  }); 
+  });
 
   it('should return results if users types `results`', ()=>{
     var self = this;
@@ -65,7 +65,7 @@ describe("controller tests",()=>{
                .then((text)=>{
                  expect(text).to.equal(response)
                })
-  }); 
+  });
 
 
   xit('should summarise results after a vote', (done)=>{
@@ -83,8 +83,8 @@ describe("controller tests",()=>{
              expect(text).to.equal(response)
              done()
            })
-  }); 
+  });
 
 
- 
+
 });
