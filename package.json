@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "",
   "main": "server.js",
+  "engines": {
+    "node": ">=6.0.0"
+  },
   "dependencies": {
     "botkit": "^0.4.1",
     "get-urls": "^5.0.1"
