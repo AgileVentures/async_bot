@@ -1,4 +1,4 @@
-var BotKit = require('BotKit');
+var BotKit = require('botkit');
 
 var assert = require('assert');
 
