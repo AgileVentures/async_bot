@@ -10,12 +10,12 @@
   "devDependencies": {
     "botkit-mock": "git+https://github.com/gratifychat/BotMock.git",
     "chai": "^3.5.0",
-    "mocha": "^3.2.0"
+    "mocha": "^3.2.0",
+    "yadda": "^0.22.1"
   },
   "scripts": {
     "test": "mocha test",
     "test:watch": "mocha -w test"
-
   },
   "author": "",
   "license": "ISC"
