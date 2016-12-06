@@ -12,7 +12,7 @@ module.exports = function(bot, controller){
   var summaryText = require('./summaryText.js');
 
   var votes = [];
-  var start_channel;
+  var start_channel = 'not set';
   var story = {
                 name: "Add option for users to delete their account",
                 url: 'https://waffle.io/AgileVentures/WebsiteOne/cards/5834ae24efa1290e00f495a7'

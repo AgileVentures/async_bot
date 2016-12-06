@@ -6,7 +6,7 @@ describe("controller tests",()=>{
 
   beforeEach((done)=>{
     var self = this;
-    self.slackId = 'test'
+    self.slackId = 'testID'
     self.userName = 'test'
     self.controller = new botMock.controller(self.slackId, self.userName)
     self.input = (text)=>{ return [{
@@ -48,10 +48,12 @@ describe("controller tests",()=>{
   it('should acknowledge vote if users direct messages `vote #`', ()=>{
     var self = this;
     var text = 'vote 1'
-    var response = "I received your vote: 1 <@test>"
+    var response = "I received your vote: 1 <@testID>"
+    var public_response = "<!here> ASYNC VOTE UPDATE 1 vote so far [<@testID> ] on <https://waffle.io/AgileVentures/WebsiteOne/cards/5834ae24efa1290e00f495a7|Add option for users to delete their account> "
     return self.controller.usersInput(self.input(text))
                .then((text)=>{
                  expect(text).to.equal(response)
+                 expect(self.controller.bot.detailedAnswers['not set'][0]).to.equal(public_response)
                })
   });
 
@@ -70,7 +72,7 @@ describe("controller tests",()=>{
     var self = this;
     return self.controller.usersInput(self.input('vote 1'))
                .then((text)=>{
-                 expect(text).to.equal('I received your vote: 1 <@test>')
+                 expect(text).to.equal('I received your vote: 1 <@testID>')
                  self.controller.usersInput(self.input('results'))
                      .then((text)=>{
                        expect(text).to.equal('summary of voting: \n\n<@test> voted: 1\n')
