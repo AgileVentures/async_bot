@@ -22,7 +22,7 @@ module.exports = function(bot, controller){
   controller.hears('start new vote',['direct_message','direct_mention'],function(bot,message) {
     votes = [];
     start_channel = message.channel;
-    match = message.text.match(/start new vote "(.*)" <?(http.*)>/)
+    match = message.text.match(/start new vote\s+"(.*)"\s+<?(http.*)>/)
     story.name = match[1]
     story.url = match[2];
     bot.reply(message,'<!channel> NEW ASYNC VOTE on <' + story.url + '|' + story.name + '> ' + instructions);
