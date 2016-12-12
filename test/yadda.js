@@ -7,8 +7,9 @@ new Yadda.FeatureFileSearch('./test/features').each(function(file) {
 
         var cucumber = require('./steps/cucumber');
         var hello = require('./steps/hello');
+        var voting = require('./steps/voting');
 
-        var yadda = Yadda.createInstance([cucumber, hello]);
+        var yadda = Yadda.createInstance([cucumber, hello, voting]);
 
         scenarios(feature.scenarios, function(scenario) {
             var ctx = {};
