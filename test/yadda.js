@@ -6,8 +6,9 @@ new Yadda.FeatureFileSearch('./test/features').each(function(file) {
 	featureFile(file, function(feature) {
 
 		var cucumber = require('./steps/cucumber');
+        var hello = require('./steps/hello');
 
-		var yadda = Yadda.createInstance([cucumber]);
+		var yadda = Yadda.createInstance([cucumber, hello]);
 
 		scenarios(feature.scenarios, function(scenario) {
 			steps(scenario.steps, function(step, done) {
