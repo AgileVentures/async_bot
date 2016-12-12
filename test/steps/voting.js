@@ -16,3 +16,20 @@ module.exports = English.library()
             expect(text).to.equal(response)
         })
     })
+    .when('I cast a vote', function(){
+    	this.ctx.step = this.ctx.controller.usersInput(this.ctx.input('vote 1'));
+    })
+    .then('the bot announces that a vote has been received', function(){
+    	var that = this;
+    	return this.ctx.step.then(function(text){
+    		var response = '<!here> ASYNC VOTE UPDATE 1 vote so far [<@testID> ] on <http://example.com|title> '
+    		expect(that.ctx.controller.bot.detailedAnswers['testID'][2]).to.equal(response)
+    	})
+    })
+    .then('the bot acknowledges that vote', function(){
+    	var that = this;
+    	this.ctx.step = this.ctx.step.then(function(text){
+    		var response = 'I received your vote: 1 <@testID>'
+    		expect(that.ctx.controller.bot.detailedAnswers['testID'][1]).to.equal(response)
+    	})
+    })
