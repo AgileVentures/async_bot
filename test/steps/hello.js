@@ -6,33 +6,26 @@ const testedFile = require("../../src/controller");
 
 var assert = require('assert');
 
-var self = this;
-self.input = (text) => {
-  return [{
-    first: true,
-    user: self.slackId,
-    messages: [{ text: text, isAssertion: true }]
-  }]
-};
-
-var step;
-
 module.exports = English.library()
-  .given("a bot", () => {
-    self.slackId = 'testID'
-    self.userName = 'test'
-    self.controller = new botMock.controller(self.slackId, self.userName)
+    .given("a bot", function () {
 
-    testedFile(self.controller.bot, self.controller)
+        this.ctx.input = (text) => {
+            return [{
+                first: true,
+                user: 'testID',
+                messages: [{ text: text, isAssertion: true }]
+            }]
+        };
 
-  })
-  .when("I say 'hello'", () => {
-    var self = this;
-    step = self.controller.usersInput(self.input('hello'));
-  })
-  .then("the bot respond back 'hello yourself'", () => {
-    return step.then((text) => {
-      expect(text).to.equal('Hello yourself')
+        this.ctx.controller = new botMock.controller('testID', 'test')
+
+        testedFile(this.ctx.controller.bot, this.ctx.controller)
     })
-
-  });
+    .when("I say 'hello'", function () {
+        this.ctx.step = this.ctx.controller.usersInput(this.ctx.input('hello'));
+    })
+    .then("the bot respond back 'hello yourself'", function () {
+        return this.ctx.step.then(function (text) {
+            expect(text).to.equal('Hello yourself')
+        })
+    });
