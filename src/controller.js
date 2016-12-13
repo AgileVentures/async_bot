@@ -20,14 +20,13 @@ module.exports = function(bot, controller){
                 url: 'https://waffle.io/AgileVentures/WebsiteOne/cards/5834ae24efa1290e00f495a7'
               };
   var instructions = 'Please DM me with: `vote 1` (Simple), `vote 2` (Medium) or `vote 3` (Hard) - Discussion in ticket or here as you prefer. :slightly_smiling_face:'
+  var storyId
 
-  function setStoryId(res){
-    story = res.text
-    return story._id
+  function setStoryId(id){
+    storyId = id
   }
 
   controller.hears('start new vote',['direct_message','direct_mention'],function(bot,message) {
-    var storyId
     votes = [];
     start_channel = message.channel;
     match = message.text.match(/start new vote\s+(.*)\s+<?(http.*)>/)
@@ -37,22 +36,19 @@ module.exports = function(bot, controller){
     .set('Content-Type', 'application/json')
     .send({name: story.name, url: story.url, size: 0})
     .end(function(err, res){
-      console.log(res.text) // why can I log out res.text here but not res.text._id
-      console.log("POSTED A NEW STORY")
+      storyId = JSON.parse(res.text)._id
+      setStoryId(storyId)
     })
     bot.reply(message,'<!channel> NEW ASYNC VOTE on <' + story.url + '|' + story.name + '> ' + instructions);
   });
 
   controller.hears('vote',['direct_message'],function(bot,message) {
-    console.log("VOTING ON A STORY")
-    console.log(storyId)
     vote = message.text.match(/\d+/)[0]
-    // request.post('http://master.bass-seahorse-cod.app.push.drieapp.co/stories/' + storyId + "/votes")
-    // .set('Content-Type', 'application/json')
-    // .send({size: vote})
-    // .end(function(err, res){
-    //   console.log("POSTED A NEW VOTE")
-    // })
+    request.post('localhost:3000/stories/' + storyId + "/votes")
+    .set('Content-Type', 'application/json')
+    .send({size: vote})
+    .end(function(err, res){
+    })
     votes.push({vote:vote, user:message.user});
     bot.reply(message,'I received your vote: ' + vote +  ' <@'+message.user+'>');
     bot.say({channel: start_channel, text: '<!here> ASYNC VOTE UPDATE '+ summaryText(votes)+ ' on <' + story.url + '|' + story.name + '> '});
