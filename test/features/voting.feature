@@ -7,4 +7,4 @@ Scenario: Should vote for features
    Then the bot respond back with a vote announcement
    When I cast a vote
    Then the bot acknowledges that vote
-   Then the bot announces that a vote has been received
+   And the bot announces that a vote has been received

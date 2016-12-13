@@ -1,10 +1,5 @@
+const English = require('yadda').localisation.English;
 const expect = require('chai').expect;
-
-var English = require('yadda').localisation.English;
-const botMock = require('botkit-mock');
-const testedFile = require("../../src/controller");
-
-var assert = require('assert');
 
 module.exports = English.library()
     .when('I begin a voting session', function () {
@@ -16,21 +11,21 @@ module.exports = English.library()
             expect(text).to.equal(response)
         })
     })
-    .when('I cast a vote', function(){
-    	this.ctx.step = this.ctx.controller.usersInput(this.ctx.input('vote 1'));
+    .when('I cast a vote', function () {
+        this.ctx.step = this.ctx.controller.usersInput(this.ctx.input('vote 1'));
     })
-    .then('the bot announces that a vote has been received', function(){
-    	var that = this;
-    	return this.ctx.step.then(function(text){
-    		var response = '<!here> ASYNC VOTE UPDATE 1 vote so far [<@testID> ] on <http://example.com|title> '
-    		expect(text).to.equal(response)
-    	})
+    .then('the bot announces that a vote has been received', function () {
+        var that = this;
+        return this.ctx.step.then(function (text) {
+            var response = '<!here> ASYNC VOTE UPDATE 1 vote so far [<@testID> ] on <http://example.com|title> '
+            expect(text).to.equal(response)
+        })
     })
-    .then('the bot acknowledges that vote', function(){
-    	var that = this;
-    	this.ctx.step = this.ctx.step.then(function(text){
-    		var response = 'I received your vote: 1 <@testID>'
-    		expect(that.ctx.controller.bot.detailedAnswers['testID']).to.include(response)
-    		return text;
-    	})
+    .then('the bot acknowledges that vote', function () {
+        var that = this;
+        this.ctx.step = this.ctx.step.then(function (text) {
+            var response = 'I received your vote: 1 <@testID>'
+            expect(that.ctx.controller.bot.detailedAnswers['testID']).to.include(response)
+            return text;
+        })
     })
