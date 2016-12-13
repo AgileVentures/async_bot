@@ -18,23 +18,6 @@ describe("controller tests",()=>{
     done();
   });
 
-  it('should return `help message` if user types `help`', ()=>{
-    var self = this;
-    var response = 'go to channel you want vote and direct mention me `start new vote "title" http://ticket.url` to start vote'
-    return self.controller.usersInput(self.input('help'))
-               .then((text)=>{
-                 expect(text).to.equal(response)
-               })
-  });
-
-  it('should return `hello yourself` if user types `hello`', ()=>{
-    var self = this;
-    return self.controller.usersInput(self.input('hello'))
-               .then((text)=>{
-                 expect(text).to.equal('Hello yourself')
-               })
-  });
-
   it('should return vote announcement if user types `start new vote`', ()=>{
     var self = this;
     var text = 'start new vote "title" <http://example.com>'
