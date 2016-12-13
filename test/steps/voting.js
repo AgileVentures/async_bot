@@ -29,3 +29,12 @@ module.exports = English.library()
             return text;
         })
     })
+    .when('I ask for voting results', function () {
+        this.ctx.step = this.ctx.controller.usersInput(this.ctx.input('results'));
+    })
+    .then('the bot announces the voting results', function () {
+        return this.ctx.step.then(function (text) {
+            var response = 'summary of voting: \n\n<@testID> voted: 1\n'
+            expect(text).to.equal(response)
+        })
+    })
