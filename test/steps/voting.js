@@ -2,8 +2,8 @@ const English = require('yadda').localisation.English;
 const expect = require('chai').expect;
 
 module.exports = English.library()
-    .when('I begin a voting session', function () {
-        this.ctx.step = this.ctx.controller.usersInput(this.ctx.input('start new vote "title" <http://example.com>'));
+    .when('I begin a voting session with $TEXT', function (text) {
+        this.ctx.step = this.ctx.controller.usersInput(this.ctx.input(text));
     })
     .then('the bot respond back with a vote announcement', function () {
         var response = "<!channel> NEW ASYNC VOTE on <http://example.com|title> Please DM me with: `vote 1` (Simple), `vote 2` (Medium) or `vote 3` (Hard) - Discussion in ticket or here as you prefer. :slightly_smiling_face:"
