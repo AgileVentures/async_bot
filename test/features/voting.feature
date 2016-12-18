@@ -14,5 +14,5 @@ Scenario: Should vote for features
 Scenario: Should accept multiple spaces
 
   Given a bot
-  When I begin a voting session with 'start new vote "title"          <http://example.com>'
-  Then the bot respond back with a vote announcement
+  When I begin a voting session in the "shf" project channel with 'start new vote "title"           <http://example.com>'
+  Then the bot responds back with a vote announcement in the "shf" project channel

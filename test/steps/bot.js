@@ -12,7 +12,7 @@ module.exports = English.library()
             }
             else{
                 messages = [{text: text, isAssertion: true}];
-            }            
+            }
             return [{
                     first: true,
                     user: 'testID',
