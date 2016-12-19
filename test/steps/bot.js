@@ -14,10 +14,10 @@ module.exports = English.library()
                 messages = [{text: text, isAssertion: true}];
             }
             return [{
-                    first: true,
-                    user: 'testID',
-                    messages: messages
-                }]; 
+                first: true,
+                user: 'testID',
+                messages: messages
+            }]; 
         };
 
         this.ctx.controller = new botMock.controller('testID', 'test')
