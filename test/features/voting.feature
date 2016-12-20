@@ -1,4 +1,7 @@
-Feature: Voting Tests
+Feature: Entire Vote
+  As a project member
+  So that I can get input on a feature/chore/bugfix that I'm interested in
+  I would like to start an online vote that others can participate in and see the results
 
 Scenario: Should vote for features
 
