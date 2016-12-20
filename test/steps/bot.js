@@ -5,12 +5,19 @@ const testedFile = require("../../src/controller");
 module.exports = English.library()
     .given("a bot", function () {
 
-        this.ctx.input = (text) => {
+        this.ctx.input = (text,channel) => {
+            var messages = [];
+            if(channel){
+                messages = [{text: text, isAssertion: true, channel: channel}];
+            }
+            else{
+                messages = [{text: text, isAssertion: true}];
+            }
             return [{
                 first: true,
                 user: 'testID',
-                messages: [{ text: text, isAssertion: true }]
-            }]
+                messages: messages
+            }]; 
         };
 
         this.ctx.controller = new botMock.controller('testID', 'test')
