@@ -1,17 +1,12 @@
-Feature: Help Tests
+Feature: Prompt after Inactivity
   As a project member
-  So that I can understand how to participate in an online vote
-  I would like the bot to provide a helpful message when I get the syntax wrong 
+  So that votes get closed out and work to start
+  I would like the bot to prompt in the channel if we don't have sufficient votes after a given period
 
-# see https://github.com/AgileVentures/async_slack_bot/issues/13
+# see https://github.com/AgileVentures/async_slack_bot/issues/4
 
-# Scenario: Should respond with help for incorrect vote starting
+# Scenario: Prompt after 12 hours and less than 3 votes
 #    Given a bot
-#    When  begin a voting session in the "shf" project channel with 'start new vote "title"'
-#    Then the bot respond back with help instructions, e.g. the format for starting a vote
+#    And a vote in progress with 2 votes where the last vote was over 12 hours ago
+#    Then the bot should say "@channel only 2 votes on <vote|http://vote.com> please DM me your vote"
 
-# Scenario: Should respond with help for incorrect vote
-#    Given a bot
-#    And a vote in progress
-#    When I say "vote trump"
-#    Then the bot respond back with help instructions, e.g. the format of voting
