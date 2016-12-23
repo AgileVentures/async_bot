@@ -12,14 +12,14 @@
     "superagent": "^3.1.0"
   },
   "devDependencies": {
-    "botkit-mock": "git+https://github.com/gratifychat/BotMock.git",
+    "botkit-mock": "git+https://github.com/agileventures/BotMock.git",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
     "yadda": "^0.22.1"
   },
   "scripts": {
     "test": "mocha test",
-    "test:watch": "mocha -w test"
+    "test:watch": "mocha -w --watch-extensions js,feature"
   },
   "author": "",
   "license": "ISC"
