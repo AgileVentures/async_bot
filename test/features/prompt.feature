@@ -3,6 +3,8 @@ Feature: Help Tests
   So that I can understand how to participate in an online vote
   I would like the bot to provide a helpful message when I get the syntax wrong 
 
+  Scenario: Help Tests
+    Given a bot
 # see https://github.com/AgileVentures/async_slack_bot/issues/13
 
 # Scenario: Should respond with help for incorrect vote starting
