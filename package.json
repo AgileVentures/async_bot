@@ -9,6 +9,7 @@
   "dependencies": {
     "botkit": "^0.4.1",
     "get-urls": "^5.0.1",
+    "nock": "^9.0.2",
     "superagent": "^3.1.0"
   },
   "devDependencies": {

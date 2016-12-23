@@ -1,5 +1,6 @@
 const English = require('yadda').localisation.English;
 const expect = require('chai').expect;
+const nock = require('nock')
 
 module.exports = English.library()
     .when('I begin a voting session in the "$channel" project channel with $TEXT', function(channel,text){
@@ -39,4 +40,10 @@ module.exports = English.library()
             var response = 'summary of voting: \n\n<@testID> voted: 1\n'
             expect(that.ctx.controller.bot.detailedAnswers[channel]).to.include(response)
         })
+    })
+    .given("network interactions are mocked", function(channel){
+
+    })
+    .then("the vote is persisted to the Async core backend", function(channel){
+
     })

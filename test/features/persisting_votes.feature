@@ -1,7 +1,14 @@
-Feature: Persisting Votes in Parallel
+Feature: Persisting Votes
   As a project member
-  So that I can get use the voting bot whenever I want
-  I would like to have votes in other channel not interfere with voting in our own channel
+  So that my vote is not lost
+  I would like my vote to be persisted before the vote ends
 
-  Scenario: Persisting Votes in Parallel
+  Scenario: Persisting individual vote
     Given a bot
+    Given network interactions are mocked
+    # replace with given a vote is in progress
+    When I begin a voting session in the "shf" project channel with 'start new vote "title" <http://example.com>'
+    When I cast a vote
+    Then the bot acknowledges that vote
+    Then the vote is persisted to the Async core backend
+
