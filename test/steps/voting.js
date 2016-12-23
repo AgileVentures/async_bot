@@ -42,8 +42,13 @@ module.exports = English.library()
         })
     })
     .given("network interactions are mocked", function(channel){
-
+        var that = this;
+        this.ctx.async_rest = nock('http://localhost:3000').post('/stories/3/votes').reply(200,'OK');
+        setTimeout(function() {
+          this.ctx.async_rest.done(); // will throw an assertion error if meanwhile a "GET http://google.com" was not performed.
+        }, 5000);
     })
     .then("the vote is persisted to the Async core backend", function(channel){
-
+        var that = this;
+        this.ctx.async_rest.done();
     })
