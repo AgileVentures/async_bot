@@ -9,8 +9,9 @@ new Yadda.FeatureFileSearch('./test/features').each(function (file) {
         var hello = require('./steps/hello');
         var help = require('./steps/help');
         var voting = require('./steps/voting');
+        var api = require('./steps/api');
 
-        var yadda = Yadda.createInstance([bot, hello, help, voting]);
+        var yadda = Yadda.createInstance([bot, hello, help, voting, api]);
 
         scenarios(feature.scenarios, function (scenario) {
             var ctx = {};

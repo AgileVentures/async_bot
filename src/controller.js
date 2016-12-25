@@ -32,23 +32,28 @@ module.exports = function(bot, controller){
     match = message.text.match(/start new vote\s+"(.*)"\s+<?(http.*)>/)
     story.name = match[1]
     story.url = match[2];
-    // request.post('localhost:3000/stories/')
-    // .set('Content-Type', 'application/json')
-    // .send({name: story.name, url: story.url, size: 0})
-    // .end(function(err, res){
-    //   storyId = JSON.parse(res.text)._id
-    //   setStoryId(storyId)
-    // })
+
+    request.post('http://localhost:3000/stories')
+      .set('Content-Type', 'application/json')
+      .send({ name: story.name, url: story.url, size: 0 })
+      .end(function (err, res) {
+        if (!err) {
+          storyId = JSON.parse(res.text)._id
+          setStoryId(storyId)
+        }
+      })
+
     bot.reply(message,'<!channel> NEW ASYNC VOTE on <' + story.url + '|' + story.name + '> ' + instructions);
   });
 
   controller.hears('vote',['direct_message'],function(bot,message) {
     vote = message.text.match(/\d+/)[0]
-    // request.post('localhost:3000/stories/' + storyId + "/votes")
-    // .set('Content-Type', 'application/json')
-    // .send({size: vote})
-    // .end(function(err, res){
-    // })
+
+    request.post('http://localhost:3000/stories/' + storyId + "/votes")
+      .set('Content-Type', 'application/json')
+      .send({ size: vote })
+      .end()
+
     votes.push({vote:vote, user:message.user});
     bot.reply(message,'I received your vote: ' + vote +  ' <@'+message.user+'>');
     bot.say({channel: start_channel, text: '<!here> ASYNC VOTE UPDATE '+ summaryText(votes)+ ' on <' + story.url + '|' + story.name + '> '});
