@@ -26,33 +26,39 @@ module.exports = function(bot, controller){
     storyId = id
   }
 
-  controller.hears('start new vote',['direct_message','direct_mention'],function(bot,message) {
-    votes = [];
-    start_channel = message.channel;
-    match = message.text.match(/start new vote\s+"(.*)"\s+<?(http.*)>/)
-    story.name = match[1]
-    story.url = match[2];
-
+  function postNewStory(storyName, storyUrl){
     request.post('http://localhost:3000/stories')
       .set('Content-Type', 'application/json')
-      .send({ name: story.name, url: story.url, size: 0 })
+      .send({ name: storyName, url: storyUrl, size: 0 })
       .end(function (err, res) {
         if (!err) {
           storyId = JSON.parse(res.text)._id
           setStoryId(storyId)
         }
       })
+  }
+
+  function postNewVote(){
+    request.post('http://localhost:3000/stories/' + storyId + "/votes")
+      .set('Content-Type', 'application/json')
+      .send({ size: vote })
+      .end()
+  }
+
+  controller.hears('start new vote',['direct_message','direct_mention'],function(bot,message) {
+    votes = [];
+    start_channel = message.channel;
+    match = message.text.match(/start new vote\s+"(.*)"\s+<?(http.*)>/)
+    story.name = match[1]
+    story.url = match[2];
+    postNewStory(story.name, story.url)
 
     bot.reply(message,'<!channel> NEW ASYNC VOTE on <' + story.url + '|' + story.name + '> ' + instructions);
   });
 
   controller.hears('vote',['direct_message'],function(bot,message) {
     vote = message.text.match(/\d+/)[0]
-
-    request.post('http://localhost:3000/stories/' + storyId + "/votes")
-      .set('Content-Type', 'application/json')
-      .send({ size: vote })
-      .end()
+    postNewVote()
 
     votes.push({vote:vote, user:message.user});
     bot.reply(message,'I received your vote: ' + vote +  ' <@'+message.user+'>');
