@@ -4,7 +4,7 @@ A slack bot to handle asynchronous planning poker
 
 ## Setup
 
-Set an environemnt variable equal to ASYNC_VOTER_SLACK_BOT_TOKEN to be your custom bot token.
+Set an environment variable equal to ASYNC_VOTER_SLACK_BOT_TOKEN to be your custom bot token.  Set in your `.bashrc` or prefix the bot command with `ASYNC_VOTER_SLACK_BOT_TOKEN=<your-token>`
 
 ## Running
 
