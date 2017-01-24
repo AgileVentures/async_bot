@@ -11,7 +11,7 @@
     "get-urls": "^5.0.1"
   },
   "devDependencies": {
-    "botkit-mock": "git+https://github.com/agileventures/BotMock.git",
+    "botkit-mock": "0.0.1",
     "chai": "^3.5.0",
     "mocha": "^3.2.0",
     "yadda": "^0.22.1"
